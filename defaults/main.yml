@@ -1,0 +1,4 @@
+---
+# defaults file for test-role
+ffmpeg_download_home: https://johnvansickle.com/ffmpeg
+ffmpeg_temp_loc: /tmp/ffmpeg

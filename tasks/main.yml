@@ -1,0 +1,48 @@
+---
+- name: Create {{ ffmpeg_temp_loc }}
+  file:
+    state: directory
+    path: "{{ ffmpeg_temp_loc }}"
+
+- name: Check if the specified version of ffmpeg is already downloaded
+  stat:
+    path: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_download_file }}"
+  register: ffmpeg_downloaded
+  changed_when: False
+
+- debug:
+    msg: "Required ffmpeg version is already downloaded? '{{ ffmpeg_downloaded.stat.exists}}'"
+
+- name: Download ffmpeg {{ ffmpeg_version }} to its temporary location from {{ ffmpeg_download_url }}
+  get_url:
+    url: "{{ ffmpeg_download_home }}/{{ ffmpeg_download_url }}"
+    dest: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_download_file }}"
+  when: not ffmpeg_downloaded.stat.exists
+
+- name: Create {{ ffmpeg_extracted_content }}
+  file:
+    state: directory
+    path: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_extracted_content }}"
+
+- name: Extract {{ ffmpeg_download_file }} into {{ ffmpeg_extracted_content }}
+  unarchive:
+    src: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_download_file }}"
+    dest: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_extracted_content }}"
+    remote_src: True
+    extra_opts: [--strip-components=1]
+
+- name: Copy ffmpeg executable into {{ ffmpeg_executable_path }}
+  copy:
+    src: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_extracted_content }}/ffmpeg"
+    dest: "{{ ffmpeg_executable_path }}"
+    mode: '0755'
+    remote_src: True
+  become: True
+
+- name: Copy ffprobe executable into {{ ffprobe_executable_path }}
+  copy:
+    src: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_extracted_content }}/ffprobe"
+    dest: "{{ ffprobe_executable_path }}"
+    mode: '0755'
+    remote_src: True
+  become: True

@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Aziz Unsal
+  description: Installs FFmpeg static builds for Debian, Ubuntu and Alpine.
+  license: BSD-3-Clause
+
+  platforms:
+  - name: Ubuntu
+    versions:
+      - all
+  - name: Debian
+    versions:
+      - all
+
+  galaxy_tags:
+    - system
+    - multimedia
+    - ffmpeg
+    - audio
+    - video
+    - streaming
+  
