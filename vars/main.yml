@@ -1,9 +1,12 @@
 ---
-ffmpeg_download_type: git # git or release
-ffmpeg_version: 20190701  # If `ffmpeg_download_type` set to `git` then use ` 20190701` pattern otherwise use the desired release number like 4.1.4, 3.3.4 etc.
-ffmpeg_download_channel: "{{ 'releases' if ffmpeg_download_type=='release' else 'builds' }}"
-ffmpeg_download_file: "ffmpeg-{{ ffmpeg_download_type }}-amd64-static.tar.xz"
-ffmpeg_download_url: "{{ ffmpeg_download_channel }}/{{ ffmpeg_download_file }}"
-ffmpeg_extracted_content: "ffmpeg-{{ ffmpeg_download_type }}-{{ ffmpeg_version }}-amd64-static"
+ffmpeg_download_channel: builds # builds | release | old-releases
+
+# Use `20190701` like pattern when `ffmpeg_download_channel` is set to `builds`.
+# Use the last release from https://johnvansickle.com/ffmpeg/ when `ffmpeg_download_channel` is set to `release`.
+# Use `4.0.3`, `3.3.4` etc when `ffmpeg_download_channel` is set to `old-releases`.
+ffmpeg_version: 20190701
+ffmpeg_download_url: "{{ ffmpeg_download_home }}/{{ 'releases' if ffmpeg_download_channel=='release' else ffmpeg_download_channel }}/{{ ffmpeg_download_file_prefix }}-static.tar.xz"
+ffmpeg_download_file: "{{ ffmpeg_download_file_prefix }}-static.tar.xz"
+ffmpeg_extracted_content: "{{ ffmpeg_download_file_prefix }}-static"
 ffmpeg_executable_path: /usr/bin/ffmpeg
 ffprobe_executable_path: /usr/bin/ffprobe

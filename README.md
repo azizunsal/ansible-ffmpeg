@@ -11,12 +11,16 @@ None.
 Role Variables
 --------------
 
-```yaml
-ffmpeg_download_type: git # git or release
-ffmpeg_version: 20190701  # If `ffmpeg_download_type` set to `git` then use ` 20190701` pattern otherwise use the desired release number like 4.1.4, 3.3.4 etc.
+```yml
+ffmpeg_download_channel: builds # builds | release | old-releases
+
+# Use `20190701` like pattern when `ffmpeg_download_channel` is set to `builds`.
+# Use the last release from https://johnvansickle.com/ffmpeg/ when `ffmpeg_download_channel` is set to `release`.
+# Use `4.0.3`, `3.3.4` etc. when `ffmpeg_download_channel` is set to `old-releases`.
+ffmpeg_version: 20190701
 ```
 
-For the other *generated* variables please take a look `vars/main.yml` and the defaults are in `defaults/main.yml`
+For the other **generated** variables please take a look `task/main.yml`'s `set_fact` section, `vars/main.yml`. And the defaults are in `defaults/main.yml`
 
 Dependencies
 ------------
@@ -32,18 +36,28 @@ For `git master` build:
 - hosts: servers
   roles:
     - role: azizunsal.ffmpeg
-      ffmpeg_download_type: git
+      ffmpeg_download_channel: 'builds' # builds | release | old-releases
       ffmpeg_version: 20190701
 ```
 
-For any `release`:
+For the `release`:
 
 ```yml
 - hosts: servers
   roles:
     - role: azizunsal.ffmpeg
-      ffmpeg_download_type: release
+      ffmpeg_download_channel: 'release' # builds | release | old-releases
       ffmpeg_version: 4.1.4
+```
+
+And for any older releases:
+
+```yml
+- hosts: servers
+  roles:
+    - role: azizunsal.ffmpeg
+      ffmpeg_download_channel: 'old-releases' # builds | release | old-releases
+      ffmpeg_version: 3.4.2
 ```
 
 License

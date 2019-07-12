@@ -1,7 +1,7 @@
 galaxy_info:
   author: Aziz Unsal
   role_name: ffmpeg
-  description: Installs FFmpeg static builds for Debian, Ubuntu and Alpine.
+  description: Installs FFmpeg static builds for Debian and Ubuntu.
   license: BSD
   min_ansible_version: 2.5
 

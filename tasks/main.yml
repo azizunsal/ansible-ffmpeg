@@ -1,4 +1,21 @@
 ---
+- set_fact:
+    ffmpeg_download_file_prefix: 'ffmpeg-git-amd64'
+  when: ffmpeg_download_channel == 'builds'
+- set_fact:
+    ffmpeg_download_file_prefix: 'ffmpeg-release-amd64'
+  when: ffmpeg_download_channel == 'release'
+- set_fact:
+    ffmpeg_download_file_prefix: "ffmpeg-{{ ffmpeg_version }}-64bit"
+  when: ffmpeg_download_channel == 'old-releases'
+
+- debug:
+    msg: "ffmpeg_download_channel: '{{ ffmpeg_download_channel }}', version: {{ ffmpeg_version }}"
+- debug:
+    msg: "Generated fact ffmpeg_download_file_prefix : '{{ ffmpeg_download_file_prefix }}'"
+- debug:
+    msg: "ffmpeg_download_url: '{{ ffmpeg_download_url }}'"
+
 - name: Create {{ ffmpeg_temp_loc }}
   file:
     state: directory
@@ -11,11 +28,11 @@
   changed_when: False
 
 - debug:
-    msg: "Required ffmpeg version is already downloaded? '{{ ffmpeg_downloaded.stat.exists}}'"
+    msg: "Required ffmpeg version is already downloaded? '{{ ffmpeg_downloaded.stat.exists }}'"
 
 - name: Download ffmpeg {{ ffmpeg_version }} to its temporary location from {{ ffmpeg_download_url }}
   get_url:
-    url: "{{ ffmpeg_download_home }}/{{ ffmpeg_download_url }}"
+    url: "{{ ffmpeg_download_url }}"
     dest: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_download_file }}"
   when: not ffmpeg_downloaded.stat.exists
 
