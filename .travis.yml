@@ -9,5 +9,5 @@
     - pip install ansible==2.8.1
   
   script:
-    - ansible-playbook -i tests/inventory tests/main.yml --syntax-check
-    - ansible-playbook -i tests/inventory tests/main.yml --connection=local --sudo
+    - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+    - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo

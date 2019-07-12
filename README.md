@@ -1,6 +1,8 @@
 ffmpeg
 =========
 
+[![Build Status](https://travis-ci.com/azizunsal/ansible-ffmpeg.svg?branch=master)](https://travis-ci.com/azizunsal/ansible-ffmpeg)
+
 This role can be used to install FFmpeg [static builds](https://johnvansickle.com/ffmpeg/) created by John Van Sickle.
 
 Requirements
