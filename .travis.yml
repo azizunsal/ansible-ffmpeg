@@ -1,0 +1,13 @@
+---
+  language: python
+  python: "3.6.7"
+
+  before_install:
+    - sudo apt-get update -qq
+  
+  install:
+    - pip install ansible==2.8.1
+  
+  script:
+    - ansible-playbook -i tests/inventory tests/main.yml --syntax-check
+    - ansible-playbook -i tests/inventory tests/main.yml --connection=local --sudo

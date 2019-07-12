@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: all
   roles:
-    - role: ffmpeg
+    - role: ../../ansible-ffmpeg
+      ffmpeg_download_type: release
+      ffmpeg_version: 3.3.4
