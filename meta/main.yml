@@ -2,6 +2,7 @@ galaxy_info:
   author: Aziz Unsal
   description: Installs FFmpeg static builds for Debian, Ubuntu and Alpine.
   license: BSD
+  min_ansible_version: 2.5
 
   platforms:
   - name: Ubuntu
