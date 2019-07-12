@@ -16,7 +16,7 @@ ffmpeg_download_type: git # git or release
 ffmpeg_version: 20190701  # If `ffmpeg_download_type` set to `git` then use ` 20190701` pattern otherwise use the desired release number like 4.1.4, 3.3.4 etc.
 ```
 
-You just need to change `ffmpeg_version`.
+For the other *generated* variables please take a look `vars/main.yml` and the defaults are in `defaults/main.yml`
 
 Dependencies
 ------------
