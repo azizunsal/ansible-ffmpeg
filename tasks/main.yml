@@ -1,20 +1,23 @@
 ---
-- set_fact:
-    ffmpeg_download_file_prefix: 'ffmpeg-git-amd64'
-  when: ffmpeg_download_channel == 'builds'
-- set_fact:
-    ffmpeg_download_file_prefix: 'ffmpeg-release-amd64'
-  when: ffmpeg_download_channel == 'release'
-- set_fact:
-    ffmpeg_download_file_prefix: "ffmpeg-{{ ffmpeg_version }}-64bit"
-  when: ffmpeg_download_channel == 'old-releases'
-
-- debug:
-    msg: "ffmpeg_download_channel: '{{ ffmpeg_download_channel }}', version: {{ ffmpeg_version }}"
-- debug:
-    msg: "Generated fact ffmpeg_download_file_prefix : '{{ ffmpeg_download_file_prefix }}'"
-- debug:
-    msg: "ffmpeg_download_url: '{{ ffmpeg_download_url }}'"
+- name: Set ffmpeg_download_file_prefix
+  block:
+    - set_fact:
+        ffmpeg_download_file_prefix: 'ffmpeg-git-amd64'
+      when: ffmpeg_download_channel == 'builds'
+    - set_fact:
+        ffmpeg_download_file_prefix: 'ffmpeg-release-amd64'
+      when: ffmpeg_download_channel == 'release'
+    - set_fact:
+        ffmpeg_download_file_prefix: "ffmpeg-{{ ffmpeg_version }}-64bit"
+      when: ffmpeg_download_channel == 'old-releases'
+- name: Print out some generated variables
+  block:
+  - debug:
+      msg: "ffmpeg_download_channel: '{{ ffmpeg_download_channel }}', version: {{ ffmpeg_version }}"
+  - debug:
+      msg: "Generated fact ffmpeg_download_file_prefix : '{{ ffmpeg_download_file_prefix }}'"
+  - debug:
+      msg: "ffmpeg_download_url: '{{ ffmpeg_download_url }}'"
 
 - name: Create {{ ffmpeg_temp_loc }}
   file:
