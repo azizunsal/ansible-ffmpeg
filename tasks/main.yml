@@ -31,7 +31,7 @@
     remote_src: True
     extra_opts: [--strip-components=1]
 
-- name: Copy ffmpeg executable into {{ ffmpeg_executable_path }}
+- name: Copy ffmpeg executable from {{ ffmpeg_temp_loc }}/{{ ffmpeg_extracted_content }}/ffmpeg into {{ ffmpeg_executable_path }}
   copy:
     src: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_extracted_content }}/ffmpeg"
     dest: "{{ ffmpeg_executable_path }}"
@@ -39,7 +39,7 @@
     remote_src: True
   become: True
 
-- name: Copy ffprobe executable into {{ ffprobe_executable_path }}
+- name: Copy ffprobe executable from {{ ffmpeg_temp_loc }}/{{ ffmpeg_extracted_content }}/ffprobe into {{ ffprobe_executable_path }}
   copy:
     src: "{{ ffmpeg_temp_loc }}/{{ ffmpeg_extracted_content }}/ffprobe"
     dest: "{{ ffprobe_executable_path }}"

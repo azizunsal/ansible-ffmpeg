@@ -15,7 +15,7 @@ A description of the settable variables for this role should go here, including 
 
 ```yaml
 ffmpeg_download_type: git # git or release
-ffmpeg_version: "{{ 4.14 if ffmpeg_download_type=='release' else 20190701 }}"
+ffmpeg_version: 20190701  # If `ffmpeg_download_type` set to `git` then use ` 20190701` pattern otherwise use the desired release number like 4.1.4, 3.3.4 etc.
 ```
 
 You just need to change `ffmpeg_version`.
@@ -28,12 +28,24 @@ None.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+For `git master` build:
 
 ```yml
 - hosts: servers
   roles:
-    - azizunsal.ffmpeg
+    - role: azizunsal.ffmpeg
+      ffmpeg_download_type: git
+      ffmpeg_version: 20190701
+```
+
+For any `release`:
+
+```yml
+- hosts: servers
+  roles:
+    - role: azizunsal.ffmpeg
+      ffmpeg_download_type: release
+      ffmpeg_version: 4.1.4
 ```
 
 License
